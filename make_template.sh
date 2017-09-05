@@ -1,12 +1,12 @@
 #!/bin/bash
 #==========================================================================
-#		 FILE: make_template.sh
+#	   FILE: make_template.sh
 #
-# DESCRIPTION: Create Java source code templete file
+#   DESCRIPTION: Create Java source code templete file
 #
-#	   AUTHOR: Mihai Gătejescu
-#	  VERSION: 1.3.5
-#	  CREATED: 15.08.2017
+#	 AUTHOR: Mihai Gătejescu
+#	VERSION: 1.3.6
+#	CREATED: 15.08.2017
 #==========================================================================
 
 #==========================================================================
@@ -39,7 +39,7 @@ filename=$1
 
 # Delete file if it already exists
 if [ -f "$filename" ]; then
-	rm "$filename"
+	rm -f "$filename"
 fi
 
 # Function to print one line at a time
