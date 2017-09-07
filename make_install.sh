@@ -1,14 +1,15 @@
 #!/bin/bash
 #==========================================================================
-#        FILE: make_logs.sh
+#        FILE: make_install.sh
 #
-# DESCRIPTION: Pipes the output of the adb logcat command to the tee 
-#              command to write to stdout and to write logfiles
-#              Creates a directory tree: year/month/daylogfile.
+# DESCRIPTION: A workaround that allows adb install of an .apk file by
+#              by temporarily copying it in the current directory.
+#              Until I find how to make cygwin paths work with
+#              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.1
-#     CREATED: 05.09.2017
+#     VERSION: 1.0.0
+#     CREATED: 07.09.2017
 #==========================================================================
 
 #==========================================================================
@@ -28,40 +29,16 @@
 #==========================================================================
 
 # Display usage and exit, if erroneous input
-if [ ! $# = 0 ] && [ ! $# = 1 ]; then
-	echo Usage: make_logs.sh "adb logcat filter option"
+if [ ! $# = 1 ]; then
+	echo Usage: make_install path/to/apk/file
 	exit 1
 fi
 
-path="d:/logs"
+# Copy the .apk file locally
+cp "$1" tmp.apk
 
-# Go the the location of the logs
-cd "$path"
+# Install the copy of the .apk file
+adb install tmp.apk
 
-# Initialize variables: year, month, day
-year=$(date +"%Y")
-month=$(date +"%B")
-day=$(date +"%d")
-
-# Create year directory
-if [ ! -d $year ]; then
-	mkdir $year
-fi
-cd $year
-
-# Create month directory
-if [ ! -d $month ]; then
-	mkdir $month
-fi
-cd $month
-
-# Clear adb logs and console
-adb logcat -c
-clear
-
-# Start logging
-if [ -f $day ]; then
-	adb logcat | tee -a $day
-else
-	adb logcat | tee $day
-fi
+# Remove the temporary .apk file
+rm tmp.apk
