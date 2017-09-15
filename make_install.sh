@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.0
+#     VERSION: 1.1.0
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -29,16 +29,34 @@
 #==========================================================================
 
 # Display usage and exit, if erroneous input
-if [ ! $# = 1 ]; then
-	echo Usage: make_install path/to/apk/file
+if [ ! $# == 1 ] && [ ! $# == 2 ]; then
+	echo Usage: make_install [-rg] path/to/apk/file
 	exit 1
 fi
 
-# Copy the .apk file locally
-cp "$1" tmp.apk
+# If there are two arguments
+if [ $# == 2 ]; then
+	if [ ${1:0:1} == "-" ]; then
+		option=$1
+		cp "$2" tmp.apk
+	else
+		echo Usage: make_install [-rg] path/to/apk/file
+		exit 1
+	fi
+fi
+
+# If there is one argument
+if [ $# == 1 ]; then
+	# Copy the .apk file locally
+	cp "$1" tmp.apk
+fi
 
 # Install the copy of the .apk file
-adb install tmp.apk
+if [ $option ]; then
+	adb install $option tmp.apk
+else
+	adb install tmp.apk
+fi
 
 # Remove the temporary .apk file
 rm tmp.apk
