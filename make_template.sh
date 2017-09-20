@@ -5,7 +5,7 @@
 # DESCRIPTION: Create Java source code templete file
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.3.6
+#     VERSION: 1.3.7
 #     CREATED: 15.08.2017
 #==========================================================================
 
@@ -27,7 +27,7 @@
 
 # Display usage and exit, if erroneous input
 if [ ! $# == 1 ]; then
-	echo "usage: btmp filename"
+	echo "usage: make_template.sh filename"
 	exit 1
 fi
 
