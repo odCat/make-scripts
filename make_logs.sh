@@ -7,7 +7,7 @@
 #              Creates a directory tree: year/month/daylogfile.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.1
+#     VERSION: 1.0.2
 #     CREATED: 05.09.2017
 #==========================================================================
 
