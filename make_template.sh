@@ -5,7 +5,7 @@
 # DESCRIPTION: Create Java source code templete file
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.3.7
+#     VERSION: 1.3.8
 #     CREATED: 15.08.2017
 #==========================================================================
 
@@ -74,7 +74,9 @@ print_line \
 #===================================================
 # Create Java template code and write it to file
 #===================================================
-text="public class ${filename%.*}\n"
+text=${filename%.*}
+text=${text##*/}
+text="public class $text\n"
 text+="{\n\tpublic static void main(String[] args)\n\t{\n\t}\n}" 
 echo -e "$text" >> $1
 
