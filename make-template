@@ -1,6 +1,6 @@
 #!/bin/bash
 #==========================================================================
-#        FILE: make_template.sh
+#        FILE: make-template
 #
 # DESCRIPTION: Create Java source code templete file
 #

@@ -1,6 +1,6 @@
 #!/bin/bash
 #==========================================================================
-#        FILE: make_logs.sh
+#        FILE: make-logs
 #
 # DESCRIPTION: Pipes the output of the adb logcat command to the tee 
 #              command to write to stdout and to write logfiles
