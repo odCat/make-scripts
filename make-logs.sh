@@ -7,7 +7,7 @@
 #              Creates a directory tree: year/month/daylogfile.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.2
+#     VERSION: 1.0.3
 #     CREATED: 05.09.2017
 #==========================================================================
 
@@ -33,35 +33,18 @@ if [ ! $# = 0 ] && [ ! $# = 1 ]; then
 	exit 1
 fi
 
-path="d:/logs"
+# Set default log path
+path="e:/Logs"
 
 # Go the the location of the logs
 cd "$path"
 
-# Initialize variables: year, month, day
-year=$(date +"%Y")
-month=$(date +"%B")
-day=$(date +"%d")
-
-# Create year directory
-if [ ! -d $year ]; then
-	mkdir $year
-fi
-cd $year
-
-# Create month directory
-if [ ! -d $month ]; then
-	mkdir $month
-fi
-cd $month
+# Set the name of the log file
+name="$(date +%Y%m%d%H%M%S).log"
 
 # Clear adb logs and console
 adb logcat -c
 clear
 
 # Start logging
-if [ -f $day ]; then
-	adb logcat | tee -a $day
-else
-	adb logcat | tee $day
-fi
+adb logcat | tee $name
