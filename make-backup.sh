@@ -5,7 +5,7 @@
 # DESCRIPTION: A simple script to back up files
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0
+#     VERSION: 1.1
 #     CREATED: 06.07.2018
 #==========================================================================
 
@@ -16,7 +16,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#	http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,14 +25,27 @@
 # limitations under the License.
 #==========================================================================
 
-# Display usage and exit, if erroneous input
-if [ ! $# == 1 ]; then
-	echo Usage: make_backup file_to_backup
+# Print usage
+# The script works on a single file
+show_usage()
+{
+	echo "Usage: $0 file_to_backup" 1>&2
 	exit 1
+}
+
+if [ $# -ne 1 ]; then
+	show_usage
+else
+	if [ -f $1 ]; then
+		# Set the back up sufix
+		sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
+
+		# Make back up
+		backup_name="$sufix.$1"
+		echo "Copying $1 to $backup_name..."
+		cp -pf $1 $backup_name
+	else
+		echo 'The file does not exists' 1>&2
+		show_usage
+	fi
 fi
-
-# Set the back up name
-backup_name="$(date +%Y%m%d%H%M%S)-$1.bak"
-
-# Make back up
-cp -f $1 $backup_name
