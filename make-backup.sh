@@ -49,3 +49,7 @@ else
 		show_usage
 	fi
 fi
+
+# TODO
+# * Test how it works with directories
+# * Make it work on multiple files
