@@ -7,7 +7,7 @@
 #              Creates a directory tree: year/month/daylogfile.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.3
+#     VERSION: 1.0.4
 #     CREATED: 05.09.2017
 #==========================================================================
 
@@ -40,7 +40,7 @@ path="e:/Logs"
 cd "$path"
 
 # Set the name of the log file
-name="$(date +%Y%m%d%H%M%S).log"
+name="$(date +%Y-%m-%d-%H%M%S).log"
 
 # Clear adb logs and console
 adb logcat -c
