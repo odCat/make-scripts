@@ -25,8 +25,9 @@
 # limitations under the License.
 #==========================================================================
 
-# Print usage
 # The script works on a single file
+
+# Define show_usage() function
 show_usage()
 {
 	echo "Usage: $0 file_to_backup" 1>&2

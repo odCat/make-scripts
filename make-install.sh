@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.0
+#     VERSION: 1.1.1
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -28,10 +28,16 @@
 # limitations under the License.
 #==========================================================================
 
+# Define show_usage() function
+show_usage()
+{
+  echo "Usage: $0 [-rg] path/to/apk/file" 1>&2
+  exit 1
+}
+
 # Display usage and exit, if erroneous input
 if [ ! $# == 1 ] && [ ! $# == 2 ]; then
-	echo Usage: make_install [-rg] path/to/apk/file
-	exit 1
+  show_usage
 fi
 
 # If there are two arguments

@@ -5,7 +5,7 @@
 # DESCRIPTION: Create Java source code templete file
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.3.8
+#     VERSION: 1.3.9
 #     CREATED: 15.08.2017
 #==========================================================================
 
@@ -25,10 +25,16 @@
 # limitations under the License.
 #==========================================================================
 
+# Define show_usage() function
+show_usage()
+{
+	echo "usage: $0 filename"
+	exit 1
+}
+
 # Display usage and exit, if erroneous input
 if [ ! $# == 1 ]; then
-	echo "usage: make_template.sh filename"
-	exit 1
+  show_usage
 fi
 
 filename=$1
