@@ -64,5 +64,9 @@ else
 	adb install tmp.apk 2>&1 > /dev/null
 fi
 
+if [ $? == 0 ]; then
+    echo Success
+fi
+
 # Remove the temporary .apk file
 rm tmp.apk
