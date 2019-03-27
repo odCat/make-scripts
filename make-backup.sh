@@ -1,24 +1,22 @@
 #!/bin/bash
 #==========================================================================
-#        FILE: make_logs.sh
+#        FILE: make_backup.sh
 #
-# DESCRIPTION: Pipes the output of the adb logcat command to the tee 
-#              command to write to stdout and to write logfiles
-#              Creates a directory tree: year/month/daylogfile.
+# DESCRIPTION: A simple script to back up files
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.5
-#     CREATED: 05.09.2017
+#     VERSION: 1.1
+#     CREATED: 06.07.2018
 #==========================================================================
 
 #==========================================================================
-# Copyright 2017 Mihai Gătejescu
+# Copyright 2018 Mihai Gătejescu
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#	http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,32 +25,32 @@
 # limitations under the License.
 #==========================================================================
 
+# The script works on a single file
+
 # Define show_usage() function
 show_usage()
-	echo "Usage: $0 \"adb logcat filter option\"" 1>&2
+{
+	echo "Usage: $0 file_to_backup" 1>&2
 	exit 1
+}
+
+if [ $# -ne 1 ]; then
+	show_usage
+else
+	if [ -f $1 ]; then
+		# Set the back up sufix
+		sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
+
+		# Make back up
+		backup_name="$sufix.$1"
+		echo "Copying $1 to $backup_name..."
+		cp -pf $1 $backup_name
+	else
+		echo 'The file does not exists' 1>&2
+		show_usage
+	fi
 fi
-
-# Display usage and exit, if erroneous input
-if [ ! $# = 0 ] && [ ! $# = 1 ]; then
-  show_usage
-fi
-
-# Set default log path
-path="e:/Logs"
-
-# Go the the location of the logs
-cd "$path"
-
-# Set the name of the log file
-name="$(date +%Y-%m-%d-%H%M%S).log"
-
-# Clear adb logs and console
-adb logcat -c
-clear
-
-# Start logging
-adb logcat | tee $name
 
 # TODO
-# * Add filter option handling
+# * Test how it works with directories
+# * Make it work on multiple files
