@@ -25,7 +25,9 @@
 # limitations under the License.
 #==========================================================================
 
-# Change to dark mode
+# Toggle dark mode ON
+# ui_night_mode 2 ON
+# ui_night_mode 1 OFF
 adb shell settings put secure ui_night_mode 2
 
 # Need reboot after changing to night mode
