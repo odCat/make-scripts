@@ -33,3 +33,7 @@ adb -s "$deviceid" shell getprop
 # TODO
 # Choose what information to display
 # Implement how the information is gathered and shown
+# Check OS X compatibility
+#  sed '/^[[:space:]]*$/d'
+#  OR
+#  sed -i "" '/^[[:space:]]*$/d'
