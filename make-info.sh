@@ -25,6 +25,6 @@
 # limitations under the License.
 #==========================================================================
 
-deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t')
+deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' | sed -r '/^\s*$/d')
 
 adb -s "$deviceid" shell getprop
