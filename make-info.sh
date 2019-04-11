@@ -32,8 +32,15 @@ adb -s "$deviceid" shell getprop
 
 # TODO
 # Choose what information to display
+#          [init.svc.adbd]: [running]
+#          [persist.sys.usb.config]: [mtp,adb]
+#          [ril.product_code]: [SM-N950UZVAXAA]
+#          [ro.build.version.release]: [8.0.0]
+#          [ro.build.version.security_patch]: [2018-08-01]
+#          [ro.com.google.gmsversion]: [8.0_201805]
+#          [ro.build.version.base_os]: [samsung/greatqlteue/greatqlteue:8.0.0/R16NW/N950U1UEU5CRG6:user/release-keys]
 # Implement how the information is gathered and shown
 # Check OS X compatibility
-#  sed '/^[[:space:]]*$/d'
-#  OR
-#  sed -i "" '/^[[:space:]]*$/d'
+#          sed '/^[[:space:]]*$/d'
+#          OR
+#          sed -i "" '/^[[:space:]]*$/d'
