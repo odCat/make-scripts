@@ -25,8 +25,13 @@
 # limitations under the License.
 #==========================================================================
 
-deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
-           sed -r '/^\s*$/d')
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' | tr "\n" -d |
+               sed 's/--//')
+else
+    deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
+               sed -r '/^\s*$/d')
+fi
 
 adb -s "$deviceid" shell getprop
 
@@ -44,3 +49,4 @@ adb -s "$deviceid" shell getprop
 #          sed '/^[[:space:]]*$/d'
 #          OR
 #          sed -i "" '/^[[:space:]]*$/d'
+
