@@ -37,16 +37,17 @@ adb -s "$deviceid" shell getprop
 
 # TODO
 # Choose what information to display
+#          [net.bt.name]: [Android]
+#          [ro.product.locale.language]: [en]
+#          [ro.product.locale.region]: [US]
+#          [ro.product.manufacturer]: [asus]
+#          [ro.product.model]: [ASUS_X014D]
+#          [persist.sys.timezone]: [Europe/Bucharest]
+#          [ro.build.date]: [Thu Jun 22 09:27:23 CST 2017]
+#          [ro.wifi.channels]: []
 #          [init.svc.adbd]: [running]
 #          [persist.sys.usb.config]: [mtp,adb]
-#          [ril.product_code]: [SM-N950UZVAXAA]
 #          [ro.build.version.release]: [8.0.0]
-#          [ro.build.version.security_patch]: [2018-08-01]
-#          [ro.com.google.gmsversion]: [8.0_201805]
-#          [ro.build.version.base_os]: [samsung/greatqlteue/greatqlteue:8.0.0/R16NW/N950U1UEU5CRG6:user/release-keys]
+#         [gsm.sim.state] 
 # Implement how the information is gathered and shown
-# Check OS X compatibility
-#          sed '/^[[:space:]]*$/d'
-#          OR
-#          sed -i "" '/^[[:space:]]*$/d'
 
