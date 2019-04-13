@@ -66,19 +66,25 @@ else
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
 
     # Display information
-    echo "manufacturer...$manufacturer"
-    echo "model..........$model"
-    echo "firmware.......$firmware"
-    echo "debugging......$debugging"
+    echo ""
+    echo "//=========================================================="
+    echo "//"
+    echo "//     manufacturer...$manufacturer"
+    echo "//     model..........$model"
+    echo "//     firmware.......$firmware"
+    echo "//     debugging......$debugging"
     if [ -z "$wifi" ]; then
         wifi="NO"
     fi
-    echo "wifi...........$wifi"
-    echo "region.........$region"
-    echo "language.......$language"
-    echo "timezone.......$timezone"
-    echo "date...........$date"
-    echo "sim............$sim"
+    echo "//     wifi...........$wifi"
+    echo "//     region.........$region"
+    echo "//     language.......$language"
+    echo "//     timezone.......$timezone"
+    echo "//     date...........$date"
+    echo "//     sim............$sim"
+    echo "//"
+    echo "//=========================================================="
+    echo ""
 fi
 
 # TODO
