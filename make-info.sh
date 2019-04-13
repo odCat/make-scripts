@@ -25,15 +25,19 @@
 # limitations under the License.
 #==========================================================================
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' | tr "\n" -d |
-               sed 's/--//')
+if [ $(adb devices | wc -l) == 2 ]; then
+    echo "No devices connectetd"
 else
-    deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
-               sed -r '/^\s*$/d')
-fi
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' | tr "\n" -d |
+                   sed 's/--//')
+    else
+        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
+                   sed -r '/^\s*$/d')
+    fi
 
-adb -s "$deviceid" shell getprop
+    adb -s "$deviceid" shell getprop
+fi
 
 # TODO
 # Choose what information to display
