@@ -28,30 +28,62 @@
 if [ $(adb devices | wc -l) == 2 ]; then
     echo "No devices connectetd"
 else
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' | tr "\n" -d |
-                   sed 's/--//')
+    # Get device id
+    if [ "$OSTYPE" == "darwin"* ]; then
+        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
+                   tr "\n" -d | sed 's/--//')
     else
         deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
                    sed -r '/^\s*$/d')
     fi
 
-    adb -s "$deviceid" shell getprop
+    # Get information
+    manufacturer=$(adb -s "$deviceid" shell getprop |
+            grep -e "ro.product.manufacturer" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    model=$(adb -s "$deviceid" shell getprop |
+            grep -e "ro.product.model" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    firmware=$(adb -s "$deviceid" shell getprop |
+            grep -e "ro.build.version.release" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    debugging=$(adb -s "$deviceid" shell getprop |
+            grep -e "init.svc.adbd" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId')
+    language=$(adb -s "$deviceid" shell getprop |
+            grep -e "ro.product.locale.language" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    region=$(adb -s "$deviceid" shell getprop |
+            grep -e "ro.product.locale.region" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    timezone=$(adb -s "$deviceid" shell getprop |
+            grep -e "persist.sys.timezone" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    date=$(adb -s "$deviceid" shell date)
+    sim=$(adb -s "$deviceid" shell getprop |
+            grep -e "gsm.sim.state" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+
+    # Display information
+    echo "manufacturer...$manufacturer"
+    echo "model..........$model"
+    echo "firmware.......$firmware"
+    echo "debugging......$debugging"
+    if [ -z "$wifi" ]; then
+        wifi="NO"
+    fi
+    echo "wifi...........$wifi"
+    echo "region.........$region"
+    echo "language.......$language"
+    echo "timezone.......$timezone"
+    echo "date...........$date"
+    echo "sim............$sim"
 fi
 
 # TODO
-# Choose what information to display
-#          [net.bt.name]: [Android]
-#          [ro.product.locale.language]: [en]
-#          [ro.product.locale.region]: [US]
-#          [ro.product.manufacturer]: [asus]
-#          [ro.product.model]: [ASUS_X014D]
-#          [persist.sys.timezone]: [Europe/Bucharest]
-#          [ro.build.date]: [Thu Jun 22 09:27:23 CST 2017]
-#          [ro.wifi.channels]: []
-#          [init.svc.adbd]: [running]
-#          [persist.sys.usb.config]: [mtp,adb]
-#          [ro.build.version.release]: [8.0.0]
-#         [gsm.sim.state] 
-# Implement how the information is gathered and shown
-
+# Add readability
+# Test wifi
+# Test on MacOS
+# Concat region and language (e.g. US_en)
+# Format date
