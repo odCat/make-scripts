@@ -81,6 +81,9 @@ else
     echo "//     language.......$language"
     echo "//     timezone.......$timezone"
     echo "//     date...........$date"
+    if [ -z "$sim" ]; then
+        sim="NO"
+    fi
     echo "//     sim............$sim"
     echo "//"
     echo "//=========================================================="
