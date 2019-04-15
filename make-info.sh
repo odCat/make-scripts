@@ -38,32 +38,27 @@ else
     fi
 
     # Get information
-    manufacturer=$(adb -s "$deviceid" shell getprop |
+    dev_properties=$(adb -s "$deviceid" shell getprop)
+    manufacturer=$(echo "$dev_properties" |
             grep -e "ro.product.manufacturer" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    model=$(adb -s "$deviceid" shell getprop |
-            grep -e "ro.product.model" |
+    model=$(echo "$dev_properties" | grep -e "ro.product.model" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    firmware=$(adb -s "$deviceid" shell getprop |
-            grep -e "ro.build.version.release" |
+    firmware=$(echo "$dev_properties" | grep -e "ro.build.version.release" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    debugging=$(adb -s "$deviceid" shell getprop |
-            grep -e "init.svc.adbd" |
+    debugging=$(echo "$dev_properties" | grep -e "init.svc.adbd" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId'|
             cut -f2 -d"\"" | uniq)
-    language=$(adb -s "$deviceid" shell getprop |
+    language=$(echo "$dev_properties"|
             grep -e "ro.product.locale.language" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    region=$(adb -s "$deviceid" shell getprop |
-            grep -e "ro.product.locale.region" |
+    region=$(echo "$dev_properties" | grep -e "ro.product.locale.region" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    timezone=$(adb -s "$deviceid" shell getprop |
-            grep -e "persist.sys.timezone" |
+    timezone=$(echo "$dev_properties" | grep -e "persist.sys.timezone" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     date=$(adb -s "$deviceid" shell date)
-    sim=$(adb -s "$deviceid" shell getprop |
-            grep -e "gsm.sim.state" |
+    sim=$(echo "$dev_properties" | grep -e "gsm.sim.state" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
 
     # Display information
@@ -92,9 +87,6 @@ else
 fi
 
 # TODO
-# parse wifi json; I see two responses too:
-#    iface=wlan0 ident=[{type=WIFI, subType=COMBINED, networkId="eawifi"}]
 # Test on MacOS
 # Concat region and language (e.g. US_en)
 # Format date
-# if sim is null
