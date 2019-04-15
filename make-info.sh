@@ -50,7 +50,8 @@ else
     debugging=$(adb -s "$deviceid" shell getprop |
             grep -e "init.svc.adbd" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId')
+    wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId'|
+            cut -f2 -d"\"" | uniq)
     language=$(adb -s "$deviceid" shell getprop |
             grep -e "ro.product.locale.language" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
