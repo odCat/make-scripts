@@ -88,8 +88,9 @@ else
 fi
 
 # TODO
-# Add readability
-# Test wifi
+# parse wifi json; I see two responses too:
+#    iface=wlan0 ident=[{type=WIFI, subType=COMBINED, networkId="eawifi"}]
 # Test on MacOS
 # Concat region and language (e.g. US_en)
 # Format date
+# if sim is null
