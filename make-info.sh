@@ -88,5 +88,6 @@ fi
 
 # TODO
 # Test on MacOS
+#   change to gsed on MacOC
 # Concat region and language (e.g. US_en)
 # Format date
