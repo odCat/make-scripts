@@ -53,6 +53,7 @@ else
     language=$(echo "$dev_properties"|
             grep -e "ro.product.locale.language" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+
     region=$(echo "$dev_properties" | grep -e "ro.product.locale.region" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     timezone=$(echo "$dev_properties" | grep -e "persist.sys.timezone" |
@@ -73,7 +74,13 @@ else
         wifi="NO"
     fi
     echo "//     wifi...........$wifi"
+    if [ -z "$region" ]; then
+        region="N/A"
+    fi
     echo "//     region.........$region"
+    if [ -z "$language" ]; then
+        language="N/A"
+    fi
     echo "//     language.......$language"
     echo "//     timezone.......$timezone"
     echo "//     date...........$date"
