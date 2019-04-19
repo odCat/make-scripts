@@ -98,3 +98,6 @@ fi
 #   change to gsed on MacOC
 # Concat region and language (e.g. US_en)
 # Format date
+# Add CPU info
+#   adb shell cat /proc/cpuinfo
+#   adb shell getprop | grep abi
