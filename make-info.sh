@@ -46,6 +46,12 @@ else
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     firmware=$(echo "$dev_properties" | grep -e "ro.build.version.release" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    cpu=$(echo "$dev_properties" | grep -e "ro.product.cpu.abi]" |
+            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+    if [ -z "$cpu" ]; then
+        cpu=$(adb shell cat /proc/cpuinfo | grep -e "model name" |
+            cut -f2 -d':' | uniq)
+    fi
     debugging=$(echo "$dev_properties" | grep -e "init.svc.adbd" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId'|
@@ -53,7 +59,6 @@ else
     language=$(echo "$dev_properties"|
             grep -e "ro.product.locale.language" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-
     region=$(echo "$dev_properties" | grep -e "ro.product.locale.region" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     timezone=$(echo "$dev_properties" | grep -e "persist.sys.timezone" |
@@ -69,6 +74,11 @@ else
     echo "//     manufacturer...$manufacturer"
     echo "//     model..........$model"
     echo "//     firmware.......$firmware"
+    if [ -z "$cpu" ]; then
+        cpu="N/A"
+    fi
+    echo "//     cpu............$cpu"
+    echo "//"
     echo "//     debugging......$debugging"
     if [ -z "$wifi" ]; then
         wifi="NO"
@@ -98,6 +108,3 @@ fi
 #   change to gsed on MacOC
 # Concat region and language (e.g. US_en)
 # Format date
-# Add CPU info
-#   adb shell cat /proc/cpuinfo
-#   adb shell getprop | grep abi
