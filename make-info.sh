@@ -108,3 +108,4 @@ fi
 #   change to gsed on MacOC
 # Concat region and language (e.g. US_en)
 # Format date
+# Make it work for multiple devices
