@@ -25,8 +25,6 @@
 # limitations under the License.
 #==========================================================================
 
-# The script works on a single file
-
 # Define show_usage() function
 show_usage()
 {
