@@ -39,7 +39,7 @@ if [ ! $# = 0 ] && [ ! $# = 1 ]; then
 fi
 
 # Set default log path
-path="e:/Logs"
+path="e:/logs"
 
 # Go the the location of the logs
 cd "$path"
@@ -56,3 +56,5 @@ adb logcat | tee $name
 
 # TODO
 # * Add filter option handling
+# * Add path option
+# * No path option uses current directory
