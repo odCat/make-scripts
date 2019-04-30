@@ -36,6 +36,8 @@ if [ $# -ne 1 ]; then
 	show_usage
 else
     file=$(basename $1)
+    path=$(dirname $1)
+    echo $path
 	if [ -f $1 ]; then
 		# Set the back up sufix
 		sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
@@ -43,7 +45,7 @@ else
 		# Make back up in the current directory
 		backup_name="$sufix.$file"
 		echo "Copying $1 to $backup_name..."
-		cp -pf $1 $backup_name
+		cp -pf $1 "$path/$backup_name"
 	else
 		echo 'The file does not exists' 1>&2
 		show_usage
