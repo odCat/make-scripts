@@ -35,12 +35,13 @@ show_usage()
 if [ $# -ne 1 ]; then
 	show_usage
 else
+    file=$(basename $1)
 	if [ -f $1 ]; then
 		# Set the back up sufix
 		sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
 
-		# Make back up
-		backup_name="$sufix.$1"
+		# Make back up in the current directory
+		backup_name="$sufix.$file"
 		echo "Copying $1 to $backup_name..."
 		cp -pf $1 $backup_name
 	else
