@@ -50,5 +50,4 @@ else
 fi
 
 # TODO
-# * Test how it works with directories
 # * Make it work on multiple files
