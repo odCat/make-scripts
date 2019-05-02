@@ -63,7 +63,8 @@ else
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
     timezone=$(echo "$dev_properties" | grep -e "persist.sys.timezone" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
-    date=$(adb -s "$deviceid" shell date)
+    date=$(adb -s "$deviceid" shell date +%d/%m/%Y)
+    time=$(adb -s "$deviceid" shell date +%T)
     sim=$(echo "$dev_properties" | grep -e "gsm.sim.state" |
             cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
 
@@ -94,6 +95,7 @@ else
     echo "//     language.......$language"
     echo "//     timezone.......$timezone"
     echo "//     date...........$date"
+    echo "//     time...........$time"
     if [ -z "$sim" ]; then
         sim="NO"
     fi
