@@ -28,45 +28,55 @@
 if [ $(adb devices | wc -l) == 2 ]; then
     echo "No devices connectetd"
 else
-    # Get device id
-    if [ "$OSTYPE" == "darwin"* ]; then
-        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
-                   tr "\n" -d | sed 's/--//')
+    # Check if we are on MacOS
+    #   then we use GNU sed
+    #   if it is not installed,
+    #   ask the user to install it
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [ -z $(command -v gsed) ]; then
+            echo "Please install GNU sed."
+            exit 1
+        fi
+        op_sed=gsed
+
     else
-        deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
-                   sed -r '/^\s*$/d')
+        op_sed=sed
     fi
+
+    # Get device id
+    deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
+            $op_sed -r '/^\s*$/d')
 
     # Get information
     dev_properties=$(adb -s "$deviceid" shell getprop)
     manufacturer=$(echo "$dev_properties" |
             grep -e "ro.product.manufacturer" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     model=$(echo "$dev_properties" | grep -e "ro.product.model" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     firmware=$(echo "$dev_properties" | grep -e "ro.build.version.release" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     cpu=$(echo "$dev_properties" | grep -e "ro.product.cpu.abi]" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     if [ -z "$cpu" ]; then
         cpu=$(adb shell cat /proc/cpuinfo | grep -e "model name" |
             cut -f2 -d':' | uniq)
     fi
     debugging=$(echo "$dev_properties" | grep -e "init.svc.adbd" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     wifi=$(adb shell dumpsys netstats | grep -E 'iface=wlan.*networkId'|
             cut -f2 -d"\"" | uniq)
     language=$(echo "$dev_properties"|
             grep -e "ro.product.locale.language" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     region=$(echo "$dev_properties" | grep -e "ro.product.locale.region" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     timezone=$(echo "$dev_properties" | grep -e "persist.sys.timezone" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
     date=$(adb -s "$deviceid" shell date +%d/%m/%Y)
     time=$(adb -s "$deviceid" shell date +%T)
     sim=$(echo "$dev_properties" | grep -e "gsm.sim.state" |
-            cut -f2 -d' ' | sed 's/\[//' | sed 's/\]//')
+            cut -f2 -d' ' | $op_sed 's/\[//' | $op_sed 's/\]//')
 
     # Display information
     echo ""
@@ -106,7 +116,5 @@ else
 fi
 
 # TODO
-# Test on MacOS
-#   change to gsed on MacOC
 # Concat region and language (e.g. US_en)
 # Make it work for multiple devices
