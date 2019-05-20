@@ -27,6 +27,10 @@
 
 if [ $(adb devices | wc -l) == 2 ]; then
     echo "No devices connectetd"
+    exit 1
+elif [ $(adb devices | grep -e "unauthorized") == 0 ]; then
+    echo "Device unauthorized"
+    exit 1
 else
     # Check if we are on MacOS
     #   then we use GNU sed
@@ -116,5 +120,7 @@ else
 fi
 
 # TODO
-# Concat region and language (e.g. US_en)
-# Make it work for multiple devices
+#   Make check for if device not [connected or] authorized
+#   Most of the times the region and languge are empty
+#   Concat region and language (e.g. US_en)
+#   Make it work for multiple devices
