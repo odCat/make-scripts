@@ -49,13 +49,10 @@ else
         op_sed=sed
     fi
 
-    echo "TEST"
-
     # Get device id
     deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
             $op_sed -r '/^\s*$/d')
 
-            echo "TEST"
     # Get information
     dev_properties=$(adb -s "$deviceid" shell getprop)
     manufacturer=$(echo "$dev_properties" |
