@@ -5,7 +5,7 @@
 # DESCRIPTION: Display Android device informations
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.0
+#     VERSION: 1.1.0
 #     CREATED: 10.04.2019
 #==========================================================================
 
@@ -26,10 +26,12 @@
 #==========================================================================
 
 if [ $(adb devices | wc -l) == 2 ]; then
-    echo "No devices connectetd"
+    echo "No devices connectetd\n"
+    echo
     exit 1
-elif [ $(adb devices | grep -e "unauthorized") == 0 ]; then
+elif [ "$(adb devices | grep -e 'unauthorized')" ]; then
     echo "Device unauthorized"
+    echo
     exit 1
 else
     # Check if we are on MacOS
@@ -47,10 +49,13 @@ else
         op_sed=sed
     fi
 
+    echo "TEST"
+
     # Get device id
     deviceid=$(adb devices | grep -v -e "List" | cut -f1 -d$'\t' |
             $op_sed -r '/^\s*$/d')
 
+            echo "TEST"
     # Get information
     dev_properties=$(adb -s "$deviceid" shell getprop)
     manufacturer=$(echo "$dev_properties" |
@@ -120,7 +125,6 @@ else
 fi
 
 # TODO
-#   Make check for if device not [connected or] authorized
 #   Most of the times the region and languge are empty
 #   Concat region and language (e.g. US_en)
 #   Make it work for multiple devices
