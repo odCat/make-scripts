@@ -38,6 +38,7 @@ show_usage()
 # Display usage and exit, if erroneous input
 if [ ! $# == 1 ] && [ ! $# == 2 ]; then
   show_usage
+  exit 1
 fi
 
 # If there are two arguments
