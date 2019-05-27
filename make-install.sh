@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.1
+#     VERSION: 1.1.2
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -50,7 +50,6 @@ case $# in
         ;;
     * )
         show_usage
-        exit 1
         ;;
 esac
 
