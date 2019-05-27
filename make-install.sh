@@ -35,28 +35,24 @@ show_usage()
   exit 1
 }
 
-# Display usage and exit, if erroneous input
-if [ ! $# == 1 ] && [ ! $# == 2 ]; then
-  show_usage
-  exit 1
-fi
-
-# If there are two arguments
-if [ $# == 2 ]; then
-	if [ ${1:0:1} == "-" ]; then
-		option=$1
-		cp "$2" tmp.apk
-	else
-		echo Usage: make_install [-rg] path/to/apk/file
-		exit 1
-	fi
-fi
-
-# If there is one argument
-if [ $# == 1 ]; then
-	# Copy the .apk file locally
-	cp "$1" tmp.apk
-fi
+case $# in
+    1 )
+        cp "$1" tmp.apk
+        ;;
+    2 )
+        if [ ${1:0:1} == "-" ]; then
+            option=$1
+            cp "$2" tmp.apk
+        else
+            echo Usage: make_install [-rg] path/to/apk/file
+            exit 1
+        fi
+        ;;
+    * )
+        show_usage
+        exit 1
+        ;;
+esac
 
 # Install the copy of the .apk file
 if [ $option ]; then
