@@ -5,7 +5,7 @@
 # DESCRIPTION: Create Java source code templete file
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.3.9
+#     VERSION: 1.4.0
 #     CREATED: 15.08.2017
 #==========================================================================
 
@@ -49,15 +49,16 @@ if [ -f "$filename" ]; then
 fi
 
 # Function to print one line at a time
-function print_line
+print_line()
 {
-	# TODO: use case
-	if [ $# == 1 ]; then
-		printf "$1" >> "$filename"
-	fi
-	if [ $# == 2 ]; then
-		printf "$1" "$2" >> "$filename"
-	fi
+    case $# in
+        1 )
+            printf "$1" >> "$filename"
+            ;;
+        2 )
+            printf "$1" "$2" >> "$filename"
+            ;;
+    esac
 }
 
 print_line \
