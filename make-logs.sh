@@ -29,9 +29,10 @@
 
 # Define show_usage() function
 show_usage()
+{
 	echo "Usage: $0 \"adb logcat filter option\"" 1>&2
 	exit 1
-fi
+}
 
 # Display usage and exit, if erroneous input
 if [ ! $# = 0 ] && [ ! $# = 1 ]; then
@@ -39,7 +40,7 @@ if [ ! $# = 0 ] && [ ! $# = 1 ]; then
 fi
 
 # Set default log path
-path="e:/logs"
+path="d:/logs"
 
 # Go the the location of the logs
 cd "$path"
