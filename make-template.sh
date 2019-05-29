@@ -34,7 +34,7 @@ show_usage()
 
 # Display usage and exit, if erroneous input
 if [ ! $# == 1 ]; then
-  show_usage
+    show_usage
 fi
 
 filename=$1

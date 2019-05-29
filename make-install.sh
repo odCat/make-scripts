@@ -31,8 +31,8 @@
 # Define show_usage() function
 show_usage()
 {
-  echo "Usage: $0 [-rg] path/to/apk/file" 1>&2
-  exit 1
+    echo "Usage: $0 [-rg] path/to/apk/file" 1>&2
+    exit 1
 }
 
 case $# in

@@ -36,7 +36,7 @@ show_usage()
 
 # Display usage and exit, if erroneous input
 if [ ! $# = 0 ] && [ ! $# = 1 ]; then
-  show_usage
+    show_usage
 fi
 
 # Set default log path
