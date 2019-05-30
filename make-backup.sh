@@ -60,5 +60,5 @@ else
         fi
     done
 
-    echo "Done."
+    echo "Done." && echo
 fi
