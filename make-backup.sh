@@ -5,7 +5,7 @@
 # DESCRIPTION: A simple script to back up files
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1
+#     VERSION: 2.0
 #     CREATED: 06.07.2018
 #==========================================================================
 
@@ -25,6 +25,21 @@
 # limitations under the License.
 #==========================================================================
 
+# Back up a file
+backup_file()
+{
+    file=$(basename $1)
+
+    # Set the back up sufix
+    sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
+
+    # Make back up in the current directory
+    backup_name="$sufix.$file"
+    echo "Copying $1 to $backup_name..."
+
+    cp -pf $1 "$backup_name"
+}
+
 # Define show_usage() function
 show_usage()
 {
@@ -32,25 +47,16 @@ show_usage()
 	exit 1
 }
 
-if [ $# -ne 1 ]; then
+if [ -z $# ]; then
 	show_usage
 else
-    file=$(basename $1)
-    path=$(dirname $1)
-    echo $path
-	if [ -f $1 ]; then
-		# Set the back up sufix
-		sufix="BACKUP--$(date +%Y-%m-%d-%H%M%S)"
+    for file in $@ ; do
+        if [ -f $file ]; then
+            backup_file $file
+        else
+            echo "The file $file does not exist" 1>&2
+        fi
+    done
 
-		# Make back up in the current directory
-		backup_name="$sufix.$file"
-		echo "Copying $1 to $backup_name..."
-		cp -pf $1 "$path/$backup_name"
-	else
-		echo 'The file does not exists' 1>&2
-		show_usage
-	fi
+    echo "Done."
 fi
-
-# TODO
-# * Make it work on multiple files
