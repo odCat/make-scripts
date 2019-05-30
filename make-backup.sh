@@ -47,7 +47,9 @@ show_usage()
 	exit 1
 }
 
-if [ -z $# ]; then
+echo $#
+
+if [ $# -eq 0 ]; then
 	show_usage
 else
     for file in $@ ; do
