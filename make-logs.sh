@@ -7,7 +7,7 @@
 #              Creates a directory tree: year/month/daylogfile.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.5
+#     VERSION: 1.1.0
 #     CREATED: 05.09.2017
 #==========================================================================
 
@@ -34,13 +34,26 @@ show_usage()
 	exit 1
 }
 
-# Display usage and exit, if erroneous input
-if [ ! $# = 0 ] && [ ! $# = 1 ]; then
-    show_usage
-fi
-
-# Set default log path
-path="d:/logs"
+case $# in
+    0 )
+        # Set default log path
+        path="d:/logs"
+        ;;
+    1 )
+        if [ ! -d "$1" ]; then
+            echo "Directory not found."
+            exit 2
+        fi
+        if [ ! -x "$1" ]; then
+            echo "You do not have permission."
+            exit 3
+        fi
+        path="$1"
+        ;;
+    * )
+        show_usage
+        ;;
+esac
 
 # Go the the location of the logs
 cd "$path"
@@ -57,5 +70,4 @@ adb logcat | tee $name
 
 # TODO
 # * Add filter option handling
-# * Add path option
 # * No path option uses current directory

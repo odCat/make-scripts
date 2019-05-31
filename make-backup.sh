@@ -52,7 +52,7 @@ echo $#
 if [ $# -eq 0 ]; then
 	show_usage
 else
-    for file in $@ ; do
+    for file in "$@" ; do
         if [ -f $file ]; then
             backup_file $file
         else
