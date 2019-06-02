@@ -13,8 +13,8 @@ A collection of simple scripts written in Bash and Python.
 
 # 1. make-dark.sh
 
-Turns on the dark mode, on Android devices. It also initiates the necessary
-reboot after changing the mode.
+Turns on the dark mode, on Android devices. It also initiates the
+necessary reboot after changing the mode.
 
 The first complete implementation of the dark mode appears in Andorid 10.
 
@@ -26,14 +26,15 @@ I installs the app by copying it locally first.
 
 # 3. make-json-parse.py
 
-A rudimentary script for parsing/linting JSON text.
+A rudimentary script for parsing/linting JSON text. Incomplete.
 
 # 4. make-logs.sh
 
 A way to display Android logs and save them locally at the same time.
-The variable path points to the location when the logs will be saved.
 A log file is created every time the script is started. The logs will use
 the timestamp as name and the extension .log.
+The path where the log will be saved can be given as argument. The path
+variable holds the default location where the log will be saved.
 
 # 5. make-info.sh
 
