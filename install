@@ -30,18 +30,18 @@ if ! [ -d ~/bin ]; then
 fi
 
 echo "Copying make-backup..."
-cp ./make-backup.sh ~/make-backup
+cp ./make-backup.sh ~/bin/make-backup
 
 echo "Copying make-dark..."
-cp ./make-dark.sh ~/make-dark
+cp ./make-dark.sh ~/bin/make-dark
 
 echo "Copying make-info..."
-cp ./make-info.sh ~/make-info
+cp ./make-info.sh ~/bin/make-info
 
 echo "Copying make-install..."
-cp ./make-install.sh ~/make-install
+cp ./make-install.sh ~/bin/make-install
 
 echo "Copying make-logs..."
-cp ./make-logs.sh ~/make-logs
+cp ./make-logs.sh ~/bin/make-logs
 
 echo "Done." && echo
