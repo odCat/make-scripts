@@ -40,13 +40,14 @@ case $# in
         path="d:/logs"
         ;;
     1 )
-        if [ ! -d "$1" ]; then
+        if [ -d "$1" ]; then
+            if [ ! -x "$1" ]; then
+                echo "You do not have permission."
+                exit 3
+            fi
+        else
             echo "Directory not found."
             exit 2
-        fi
-        if [ ! -x "$1" ]; then
-            echo "You do not have permission."
-            exit 3
         fi
         path="$1"
         ;;
