@@ -35,11 +35,11 @@ show_usage()
 }
 
 case $# in
-    0 )
+    0     )
         # Set default log path
         path="d:/logs"
         ;;
-    1 )
+    1 | 2 )
         if [ -d "$1" ]; then
             if [ ! -x "$1" ]; then
                 echo "You do not have permission."
@@ -51,7 +51,7 @@ case $# in
         fi
         path="$1"
         ;;
-    * )
+    *     )
         show_usage
         ;;
 esac
