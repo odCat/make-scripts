@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.2
+#     VERSION: 1.1.3
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -31,7 +31,7 @@
 # Define show_usage() function
 show_usage()
 {
-    echo "Usage: $0 [-rg] path/to/apk/file" 1>&2
+    echo "Usage: $0 [option] path/to/apk/file" 1>&2
     exit 1
 }
 
