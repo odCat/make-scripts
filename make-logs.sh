@@ -40,16 +40,18 @@ case $# in
         path="d:/logs"
         ;;
     1 | 2 )
-        if [ -d "$1" ]; then
-            if [ ! -x "$1" ]; then
-                echo "You do not have permission."
-                exit 3
+        for option in $@ ; do
+            if [ -d "$option" ]; then
+                if [ ! -x "$option" ]; then
+                    echo "You do not have permission."
+                    exit 3
+                fi
+            else
+                echo "Directory not found."
+                exit 2
             fi
-        else
-            echo "Directory not found."
-            exit 2
-        fi
-        path="$1"
+            path="$option"
+        done
         ;;
     *     )
         show_usage
