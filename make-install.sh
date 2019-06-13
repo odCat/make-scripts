@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.3
+#     VERSION: 1.1.4
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -44,8 +44,7 @@ case $# in
             option=$1
             cp "$2" tmp.apk
         else
-            echo Usage: make_install [-rg] path/to/apk/file
-            exit 1
+            show_usage
         fi
         ;;
     * )
