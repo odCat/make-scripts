@@ -65,3 +65,7 @@ fi
 
 # Remove the temporary .apk file
 rm tmp.apk
+
+#TODO
+# Find why successfull on devices that do not support
+#  the -g option
