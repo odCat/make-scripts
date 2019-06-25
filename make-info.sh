@@ -5,7 +5,7 @@
 # DESCRIPTION: Display Android device informations
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.0
+#     VERSION: 1.1.1
 #     CREATED: 10.04.2019
 #==========================================================================
 
@@ -26,7 +26,7 @@
 #==========================================================================
 
 if [ $(adb devices | wc -l) == 2 ]; then
-    echo "No devices connectetd\n"
+    echo "No devices connectetd"
     echo
     exit 1
 elif [ "$(adb devices | grep -e 'unauthorized')" ]; then
