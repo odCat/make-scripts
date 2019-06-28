@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.4
+#     VERSION: 1.1.5
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -54,18 +54,31 @@ esac
 
 # Install the copy of the .apk file
 if [ $option ]; then
-	adb install $option tmp.apk 2>&1 > /dev/null
+    if [ "$option" = "-g" ]; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            if [ -z $(command -v gsed) ]; then
+                echo "Please install GNU sed."
+                exit 5
+            fi
+            op_sed=gsed
+
+        else
+            op_sed=sed
+        fi
+        if [[ "$(adb shell getprop | grep -e 'ro.build.version.release' |
+            cut -f2 -d' ' | $op_sed 's/\[//' |
+            $op_sed 's/\]//')" < "6.0" ]];
+        then
+            echo "Option -g not supported on Android 5.1.1 and lower"
+        else 
+            adb install $option tmp.apk 2>&1 > /dev/null
+        fi
+    fi
 else
 	adb install tmp.apk 2>&1 > /dev/null
 fi
 
-if [ $? == 0 ]; then
-    echo Success
-fi
+echo Finished.
 
 # Remove the temporary .apk file
 rm tmp.apk
-
-#TODO
-# Find why successfull on devices that do not support
-#  the -g option
