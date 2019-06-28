@@ -7,7 +7,7 @@
 #              Creates a directory tree: year/month/daylogfile.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.1
+#     VERSION: 1.1.2
 #     CREATED: 05.09.2017
 #==========================================================================
 
@@ -39,7 +39,7 @@ filter=""
 case $# in
     0         )
         # Set default log path
-        path="d:/logs"
+        path="."
         ;;
     1 | 2 | 3 )
         for option in $@ ; do
@@ -77,4 +77,4 @@ clear
 adb logcat $filter | tee $name
 
 # TODO
-# * No path option uses current directory
+# * Accept filter option as one argument 
