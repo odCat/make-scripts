@@ -25,6 +25,12 @@
 # limitations under the License.
 #==========================================================================
 
+show_usage()
+{
+    echo "Usage: $0 [file_to_install]"
+    exit 1
+}
+
 if ! [ -d ~/bin ]; then
     mkdir ~/bin
 fi
@@ -45,7 +51,6 @@ case $# in
 
         echo "Copying make-logs..."
         cp ./make-logs.sh ~/bin/make-logs
-
         ;;
     1 | 2 | 3 | 4 | 5 )
         for file in $@ ; do
@@ -60,6 +65,10 @@ case $# in
                 exit 2
             fi
         done
+        ;;
+    * )
+        show_usage
+        ;;
 esac
 
 echo "Done." && echo
