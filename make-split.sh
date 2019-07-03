@@ -34,13 +34,12 @@ show_usage()
 }
 
 case $# in
-    0     )
+    0 )
         show_usage
         ;;
-    1 | 2 )
+    1 )
         if [ -f "$1" ]; then
             declare -i middle=$(wc -l $1 | cut -d' ' -f1)/2
-            echo $middle
             base_name=$(basename $0)
             name1="${base_name%%.*}1.${base_name##*.}"
             name2="${base_name%%.*}2.${base_name##*.}"
@@ -56,7 +55,10 @@ case $# in
     #     echo "Not implemented yet."
     #     exit 11
     #     ;;
-    *     )
+    * )
         show_usage
         ;;
 esac
+
+#TODO
+# Make the script accept the number of resulting split files
