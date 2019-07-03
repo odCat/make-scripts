@@ -11,7 +11,7 @@
 #==========================================================================
 
 #==========================================================================
-# Copyright 2017 Mihai Gătejescu
+# Copyright 2019 Mihai Gătejescu
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,3 +25,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #==========================================================================
+
+# Define show_usage() function
+show_usage()
+{
+	echo "Usage: $0 file [number of splits]" 1>&2
+	exit 1
+}
+
+case $# in
+    0     )
+        show_usage
+        ;;
+    1 | 2 )
+        if [ -f "$1" ]; then
+            declare -i middle=$(wc -l $1 | cut -d' ' -f1)/2
+            echo $middle
+            base_name=$(basename $0)
+            name1="${base_name%%.*}1.${base_name##*.}"
+            name2="${base_name%%.*}2.${base_name##*.}"
+            head "-$middle" $1 > $name1
+            tail "--lines=+$middle" $1 > $name2
+            echo "File $1 split into $name1 and $name2."
+        else
+            echo "File $1 not found."
+            exit 2
+        fi
+        ;;
+    # 2 )
+    #     echo "Not implemented yet."
+    #     exit 11
+    #     ;;
+    *     )
+        show_usage
+        ;;
+esac
