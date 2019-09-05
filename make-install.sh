@@ -8,7 +8,7 @@
 #              adb install.
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.1.5
+#     VERSION: 1.1.6
 #     CREATED: 07.09.2017
 #==========================================================================
 
@@ -70,9 +70,9 @@ if [ $option ]; then
             $op_sed 's/\]//')" < "6.0" ]];
         then
             echo "Option -g not supported on Android 5.1.1 and lower"
-        else 
-            adb install $option tmp.apk 2>&1 > /dev/null
         fi
+    else 
+        adb install $option tmp.apk 2>&1 > /dev/null
     fi
 else
 	adb install tmp.apk 2>&1 > /dev/null
