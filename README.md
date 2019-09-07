@@ -44,7 +44,3 @@ Debugger command.
 # 6. make-template.sh
 
 Makes a template file for Java classes.
-
-# TODO
-
-[logs] Add path option
