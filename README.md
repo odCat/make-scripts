@@ -9,7 +9,8 @@ A collection of simple scripts written in Bash and Python.
 3. make-json-parse.py
 4. make-logs.sh
 5. make-info.sh
-6. make-template.sh
+6. make-split.sh
+7. make-template.sh
 
 # 1. make-dark.sh
 
@@ -40,6 +41,10 @@ variable holds the default location where the log will be saved.
 
 Displays information about the Android device connected using the Android
 Debugger command.
+
+# 5. make-split.sh
+
+Splits a text file into two separate files.
 
 # 6. make-template.sh
 
