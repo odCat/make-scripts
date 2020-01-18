@@ -5,7 +5,7 @@
 # DESCRIPTION: Installs the rest of the scripts in ~/bin
 #
 #      AUTHOR: Mihai Gătejescu
-#     VERSION: 1.0.0
+#     VERSION: 1.1.0
 #     CREATED: 22.05.2019
 #==========================================================================
 
@@ -25,23 +25,50 @@
 # limitations under the License.
 #==========================================================================
 
+show_usage()
+{
+    echo "Usage: $0 [file_to_install]"
+    exit 1
+}
+
 if ! [ -d ~/bin ]; then
     mkdir ~/bin
 fi
 
-echo "Copying make-backup..."
-cp ./make-backup.sh ~/bin/make-backup
+case $# in
+    0 )
+        echo "Copying make-backup..."
+        cp ./make-backup.sh ~/bin/make-backup
 
-echo "Copying make-dark..."
-cp ./make-dark.sh ~/bin/make-dark
+        echo "Copying make-dark..."
+        cp ./make-dark.sh ~/bin/make-dark
 
-echo "Copying make-info..."
-cp ./make-info.sh ~/bin/make-info
+        echo "Copying make-info..."
+        cp ./make-info.sh ~/bin/make-info
 
-echo "Copying make-install..."
-cp ./make-install.sh ~/bin/make-install
+        echo "Copying make-install..."
+        cp ./make-install.sh ~/bin/make-install
 
-echo "Copying make-logs..."
-cp ./make-logs.sh ~/bin/make-logs
+        echo "Copying make-logs..."
+        cp ./make-logs.sh ~/bin/make-logs
+        ;;
+    1 | 2 | 3 | 4 | 5 )
+        for file in $@ ; do
+            if [ -f "$file"  ]; then
+                echo "Copying ${file%%.sh}..."
+                cp ./$file ~/bin/${file%%.sh}
+            elif [ -f "$file.sh" ]; then
+                echo "Copying $file..."
+                cp "./$file.sh" ~/bin/$file
+            else
+                echo "The $file does not exist."
+                exit 2
+            fi
+        done
+        ;;
+    * )
+        show_usage
+        ;;
+esac
 
 echo "Done." && echo
