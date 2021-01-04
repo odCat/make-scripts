@@ -10,7 +10,7 @@
 #==========================================================================
 
 #==========================================================================
-# Copyright 2017, 2018, 2019, 2020 Mihai Gătejescu
+# Copyright 2017, 2018, 2019, 2020, 2021 Mihai Gătejescu
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
