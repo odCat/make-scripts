@@ -42,10 +42,10 @@ variable holds the default location where the log will be saved.
 Displays information about the Android device connected using the Android
 Debugger command.
 
-# 5. make-split.sh
+# 6. make-split.sh
 
 Splits a text file into two separate files.
 
-# 6. make-template.sh
+# 7. make-template.sh
 
 Makes a template file for Java classes.
